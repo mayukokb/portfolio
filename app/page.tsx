@@ -30,7 +30,7 @@ const heroCards = [
     title: 'Contact & Blog',
     description: 'Let’s collaborate or browse thoughts-in-progress.',
     accent: 'accentOrange' as const,
-    target: '#contact'
+    target: '#contact-blog'
   }
 ];
 
@@ -217,7 +217,7 @@ export default function HomePage() {
         </div>
       </SectionShell>
 
-      <SectionShell id="contact" className="bg-white/70 backdrop-blur">
+      <SectionShell id="contact-blog" className="bg-white/70 backdrop-blur">
         <div className="grid gap-12 lg:grid-cols-2">
           <div className="space-y-6">
             <p className="text-xs font-semibold uppercase tracking-[0.24em] text-neutral-600">Contact</p>

@@ -10,7 +10,7 @@ type NavLink = {
 const links: NavLink[] = [
   { label: 'About', href: '#about' },
   { label: 'Projects', href: '#projects' },
-  { label: 'Contact & Blog', href: '#contact' }
+  { label: 'Contact & Blog', href: '#contact-blog' }
 ];
 
 export function NavBar() {
