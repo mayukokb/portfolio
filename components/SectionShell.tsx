@@ -35,7 +35,7 @@ export function SectionShell({ id, className = '', children }: SectionShellProps
     <section
       id={id}
       ref={ref}
-      className={`section-hidden mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8 ${className} ${isVisible ? 'section-visible' : ''}`}
+      className={`section-hidden mx-auto max-w-6xl border-t border-neutral-200/70 px-4 py-20 sm:px-6 lg:px-8 ${className} ${isVisible ? 'section-visible' : ''}`}
     >
       {children}
     </section>
