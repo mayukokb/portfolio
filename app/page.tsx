@@ -13,26 +13,47 @@ import { NavBar } from '@/components/NavBar';
 import { HeroCard } from '@/components/HeroCard';
 import { SectionShell } from '@/components/SectionShell';
 
+const SparkIcon = () => (
+  <svg viewBox="0 0 32 32" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="1.5">
+    <path d="M16 3v6m0 14v6m-7-7h6m2 0h6m-9-9-4-4m12 12-4-4m0 0-4 4m12-12-4 4" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+);
+
+const CompassIcon = () => (
+  <svg viewBox="0 0 32 32" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="1.5">
+    <circle cx="16" cy="16" r="11" />
+    <path d="m13 13-3 10 10-3 3-10-10 3Z" strokeLinejoin="round" />
+    <circle cx="16" cy="16" r="2" />
+  </svg>
+);
+
+const EnvelopeIcon = () => (
+  <svg viewBox="0 0 32 32" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="1.5">
+    <rect x="5" y="8" width="22" height="16" rx="2" />
+    <path d="m6 10 10 7 10-7" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+);
+
 const heroCards = [
   {
     title: 'About Me',
     description: 'Get a quick snapshot of my design story and strengths.',
     accent: 'accentBlue' as const,
-    icon: '✨',
+    icon: <SparkIcon />,
     target: '#about'
   },
   {
     title: 'Projects',
     description: 'Selected UX / product work across web and mobile.',
     accent: 'accentGreen' as const,
-    icon: '🧭',
+    icon: <CompassIcon />,
     target: '#projects'
   },
   {
     title: 'Contact & Blog',
     description: 'Let’s collaborate or browse thoughts-in-progress.',
     accent: 'accentOrange' as const,
-    icon: '✉️',
+    icon: <EnvelopeIcon />,
     target: '#contact'
   }
 ];
@@ -81,86 +102,146 @@ export default function HomePage() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-[#eef2ff] to-white">
       <NavBar />
 
-      <main className="mx-auto max-w-6xl px-4 pb-20 pt-10 sm:px-6 lg:px-8">
-        <section className="flex flex-col items-start gap-8 py-10 sm:py-16">
-          <div className="max-w-3xl space-y-4">
-            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-500">Portfolio</p>
-            <h1 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl md:text-5xl">Your Name Here</h1>
-            <p className="text-lg font-medium text-slate-700 sm:text-xl">UX / UI &amp; Product Designer</p>
-            <p className="max-w-2xl text-base text-slate-600 sm:text-lg">
-              I design digital products that balance thoughtful research, crisp interaction patterns, and narrative clarity.
+      <main className="mx-auto max-w-6xl px-4 pb-20 pt-14 sm:px-6 lg:px-8">
+        <section className="grid items-center gap-12 py-10 lg:grid-cols-[1.05fr_0.95fr] lg:py-16">
+          <div className="space-y-6">
+            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-slate-500">Portfolio</p>
+            <h1 className="text-4xl font-semibold leading-tight text-slate-900 sm:text-5xl md:text-6xl lg:text-7xl">
+              Designing confident digital products for people and teams.
+            </h1>
+            <p className="max-w-2xl text-lg leading-relaxed text-slate-700 sm:text-xl">
+              I partner with founders and product teams to turn complex problems into experiences that feel effortless. Research-led, systems-minded, and always prototyping.
             </p>
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {heroCards.map((card) => (
+                <HeroCard
+                  key={card.title}
+                  title={card.title}
+                  description={card.description}
+                  icon={card.icon}
+                  accent={card.accent}
+                  onClick={() => scrollTo(card.target)}
+                />
+              ))}
+            </div>
           </div>
 
-          <div className="grid w-full gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {heroCards.map((card) => (
-              <HeroCard
-                key={card.title}
-                title={card.title}
-                description={card.description}
-                icon={card.icon}
-                accent={card.accent}
-                onClick={() => scrollTo(card.target)}
-              />
-            ))}
+          <div className="relative h-full w-full">
+            <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-accentBlue/90 via-accentOrange/70 to-accentGreen/80 opacity-80 blur-3xl" aria-hidden />
+            <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 p-8 shadow-[0_30px_80px_rgba(15,23,42,0.35)]">
+              <div className="flex items-center justify-between text-sm text-slate-200">
+                <span className="font-semibold">Selected work</span>
+                <span className="rounded-full bg-white/10 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-white">In focus</span>
+              </div>
+              <div className="mt-8 space-y-6 text-white">
+                <div className="space-y-2">
+                  <p className="text-xs uppercase tracking-[0.28em] text-accentOrange">Experience snapshot</p>
+                  <h2 className="text-3xl font-semibold leading-tight sm:text-4xl">Guiding products from research to launch.</h2>
+                  <p className="max-w-xl text-sm text-slate-200/90">
+                    Workshops, service blueprints, interaction models, and polished prototypes to help teams move with clarity.
+                  </p>
+                </div>
+                <div className="grid gap-4 sm:grid-cols-2">
+                  <div className="rounded-2xl bg-white/5 p-4 ring-1 ring-white/10">
+                    <p className="text-xs uppercase tracking-[0.18em] text-slate-200/80">Toolkit</p>
+                    <p className="mt-2 text-lg font-semibold">Research → Strategy → Systems</p>
+                    <p className="text-sm text-slate-200/80">Align teams with evidence and articulate the path forward.</p>
+                  </div>
+                  <div className="rounded-2xl bg-white/5 p-4 ring-1 ring-white/10">
+                    <p className="text-xs uppercase tracking-[0.18em] text-slate-200/80">Craft</p>
+                    <p className="mt-2 text-lg font-semibold">Interfaces with intent</p>
+                    <p className="text-sm text-slate-200/80">Design systems, motion cues, and flows that feel cohesive.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
       </main>
 
-      <SectionShell id="about" className="bg-white">
-        <div className="flex flex-col items-center gap-8 text-center">
-          <div className="h-28 w-28 rounded-full bg-slate-100" aria-hidden />
+      <SectionShell id="about" className="bg-white/80 backdrop-blur">
+        <div className="grid gap-10 lg:grid-cols-[1fr_1.2fr] lg:items-center">
           <div className="space-y-4">
-            <h2 className="text-2xl font-semibold text-slate-900 sm:text-3xl">About Me</h2>
-            <p className="max-w-2xl text-base text-slate-600 sm:text-lg">
-              I translate messy, ambiguous problems into confident product directions. I partner closely with teams to prototype, test,
-              and refine experiences that feel effortless for people.
+            <p className="text-xs font-semibold uppercase tracking-[0.28em] text-slate-500">About</p>
+            <h2 className="text-3xl font-semibold text-slate-900 sm:text-4xl">Design partner & product generalist.</h2>
+            <p className="max-w-2xl text-lg leading-relaxed text-slate-700">
+              I translate ambiguous problems into confident product directions. From framing and research to interaction design, I help teams craft experiences that respect both the business and the people using them.
             </p>
+            <div className="flex flex-wrap gap-3">
+              {expertiseBadges.map((badge) => (
+                <span
+                  key={badge}
+                  className="rounded-full border border-slate-200 bg-slate-50 px-4 py-2 text-sm font-semibold text-slate-800 shadow-sm"
+                >
+                  {badge}
+                </span>
+              ))}
+            </div>
           </div>
-          <div className="flex flex-wrap justify-center gap-3">
-            {expertiseBadges.map((badge) => (
-              <span
-                key={badge}
-                className="rounded-full bg-slate-100 px-4 py-2 text-sm font-medium text-slate-700 ring-1 ring-slate-200"
-              >
-                {badge}
-              </span>
-            ))}
+          <div className="relative overflow-hidden rounded-3xl border border-slate-100 bg-gradient-to-br from-white via-slate-50 to-[#eef2ff] p-8 shadow-[0_18px_60px_rgba(15,23,42,0.08)]">
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(79,131,255,0.12),_transparent_45%),_radial-gradient(circle_at_bottom_right,_rgba(244,183,64,0.12),_transparent_40%)]" aria-hidden />
+            <div className="relative space-y-4">
+              <div className="h-20 w-20 rounded-full bg-gradient-to-br from-accentBlue/80 via-accentOrange/70 to-accentGreen/80" aria-hidden />
+              <div className="space-y-2">
+                <p className="text-sm font-semibold uppercase tracking-[0.22em] text-slate-500">Profile</p>
+                <p className="text-lg font-medium text-slate-800">Based in Anywhere · Available for remote collaborations and in-person workshops.</p>
+              </div>
+              <div className="grid gap-3 sm:grid-cols-2">
+                <div className="rounded-2xl border border-slate-200 bg-white/70 p-4">
+                  <p className="text-xs uppercase tracking-[0.18em] text-slate-500">Approach</p>
+                  <p className="mt-2 text-base font-semibold text-slate-900">Evidence first, then bold design moves.</p>
+                </div>
+                <div className="rounded-2xl border border-slate-200 bg-white/70 p-4">
+                  <p className="text-xs uppercase tracking-[0.18em] text-slate-500">Collab</p>
+                  <p className="mt-2 text-base font-semibold text-slate-900">Partnering with PMs, engineers, and stakeholders.</p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </SectionShell>
 
       <SectionShell id="projects" className="bg-white">
-        <div className="space-y-6">
-          <div className="space-y-2 text-left">
-            <h2 className="text-2xl font-semibold text-slate-900 sm:text-3xl">Projects</h2>
-            <p className="text-base text-slate-600 sm:text-lg">Selected case studies that explore research-led product design.</p>
+        <div className="space-y-8">
+          <div className="flex flex-col gap-3 text-left">
+            <p className="text-xs font-semibold uppercase tracking-[0.28em] text-slate-500">Projects</p>
+            <h2 className="text-3xl font-semibold text-slate-900 sm:text-4xl">Case studies with measurable outcomes.</h2>
+            <p className="max-w-3xl text-lg leading-relaxed text-slate-700">
+              A snapshot of product collaborations that blend research, design systems, and narrative storytelling to ship with confidence.
+            </p>
           </div>
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {projects.map((project) => (
               <article
                 key={project.title}
-                className="flex h-full flex-col gap-3 rounded-2xl border border-slate-100 bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-lift"
+                className="flex h-full flex-col gap-4 rounded-2xl border border-slate-200/80 bg-white/80 p-5 shadow-[0_18px_60px_rgba(15,23,42,0.06)] transition hover:-translate-y-1 hover:shadow-[0_24px_70px_rgba(15,23,42,0.1)]"
               >
-                <div className="text-lg font-semibold text-slate-900">{project.title}</div>
-                <p className="text-sm text-slate-600">{project.description}</p>
+                <div className="flex items-start justify-between gap-3">
+                  <div className="text-xl font-semibold text-slate-900">{project.title}</div>
+                  <span className="rounded-full bg-slate-900/90 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-white">New</span>
+                </div>
+                <p className="text-sm leading-relaxed text-slate-600">{project.description}</p>
                 <div className="flex flex-wrap gap-2">
                   {project.tags.map((tag) => (
-                    <span key={tag} className="rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-700 ring-1 ring-slate-200">
+                    <span
+                      key={tag}
+                      className="rounded-full border border-slate-200 bg-slate-50 px-3 py-1 text-xs font-semibold text-slate-800"
+                    >
                       {tag}
                     </span>
                   ))}
                 </div>
-                <div className="mt-auto pt-2">
+                <div className="mt-auto flex items-center gap-2 pt-2 text-sm font-semibold text-accentBlue">
                   <a
                     href="#"
-                    className="text-sm font-semibold text-accentBlue transition hover:text-slate-900"
+                    className="inline-flex items-center gap-2 transition hover:text-slate-900"
                     onClick={(e) => e.preventDefault()}
                   >
-                    View more details ↗
+                    View more details
+                    <span aria-hidden>↗</span>
                   </a>
                 </div>
               </article>
@@ -169,14 +250,15 @@ export default function HomePage() {
         </div>
       </SectionShell>
 
-      <SectionShell id="contact" className="bg-white">
-        <div className="grid gap-10 lg:grid-cols-2">
-          <div className="space-y-4">
-            <h2 className="text-2xl font-semibold text-slate-900 sm:text-3xl">Contact</h2>
-            <p className="text-base text-slate-600 sm:text-lg">Let’s explore collaborations, workshops, or product design sprints.</p>
-            <div className="rounded-2xl border border-slate-100 bg-slate-50 p-6 shadow-inner">
-              <p className="text-sm font-medium text-slate-700">Email</p>
-              <p className="text-lg font-semibold text-slate-900">you@example.com</p>
+      <SectionShell id="contact" className="bg-gradient-to-br from-white via-slate-50 to-[#eef2ff]">
+        <div className="grid gap-12 lg:grid-cols-2">
+          <div className="space-y-5">
+            <p className="text-xs font-semibold uppercase tracking-[0.28em] text-slate-500">Contact</p>
+            <h2 className="text-3xl font-semibold text-slate-900 sm:text-4xl">Let’s design the next release together.</h2>
+            <p className="text-lg leading-relaxed text-slate-700">Let’s explore collaborations, workshops, or product design sprints.</p>
+            <div className="rounded-2xl border border-slate-200 bg-white/80 p-6 shadow-[0_16px_50px_rgba(15,23,42,0.06)]">
+              <p className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-500">Email</p>
+              <p className="text-xl font-semibold text-slate-900">you@example.com</p>
             </div>
             <form
               className="space-y-4"
@@ -185,65 +267,65 @@ export default function HomePage() {
               }}
             >
               <div className="space-y-2">
-                <label className="text-sm font-medium text-slate-700" htmlFor="name">
+                <label className="text-sm font-semibold text-slate-700" htmlFor="name">
                   Name
                 </label>
                 <input
                   id="name"
                   name="name"
                   type="text"
-                  className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-slate-900 shadow-sm focus:border-accentBlue focus:outline-none focus:ring-2 focus:ring-accentBlue/40"
+                  className="w-full rounded-xl border border-slate-200 bg-white px-3 py-3 text-slate-900 shadow-sm focus:border-accentBlue focus:outline-none focus:ring-2 focus:ring-accentBlue/30"
                   placeholder="Your name"
                 />
               </div>
               <div className="space-y-2">
-                <label className="text-sm font-medium text-slate-700" htmlFor="email">
+                <label className="text-sm font-semibold text-slate-700" htmlFor="email">
                   Email
                 </label>
                 <input
                   id="email"
                   name="email"
                   type="email"
-                  className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-slate-900 shadow-sm focus:border-accentBlue focus:outline-none focus:ring-2 focus:ring-accentBlue/40"
+                  className="w-full rounded-xl border border-slate-200 bg-white px-3 py-3 text-slate-900 shadow-sm focus:border-accentBlue focus:outline-none focus:ring-2 focus:ring-accentBlue/30"
                   placeholder="you@example.com"
                 />
               </div>
               <div className="space-y-2">
-                <label className="text-sm font-medium text-slate-700" htmlFor="message">
+                <label className="text-sm font-semibold text-slate-700" htmlFor="message">
                   Message
                 </label>
                 <textarea
                   id="message"
                   name="message"
                   rows={4}
-                  className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-slate-900 shadow-sm focus:border-accentBlue focus:outline-none focus:ring-2 focus:ring-accentBlue/40"
+                  className="w-full rounded-xl border border-slate-200 bg-white px-3 py-3 text-slate-900 shadow-sm focus:border-accentBlue focus:outline-none focus:ring-2 focus:ring-accentBlue/30"
                   placeholder="Project idea, collaboration, or a friendly hello"
                 />
               </div>
               <button
                 type="submit"
-                className="inline-flex items-center justify-center rounded-full bg-accentGreen px-5 py-3 text-sm font-semibold text-slate-900 shadow-sm transition hover:-translate-y-0.5 hover:shadow-lift focus:outline-none focus-visible:ring-2 focus-visible:ring-accentGreen"
+                className="inline-flex items-center justify-center rounded-full bg-slate-900 px-5 py-3 text-sm font-semibold text-white shadow-[0_16px_40px_rgba(15,23,42,0.18)] transition hover:-translate-y-0.5 hover:shadow-[0_20px_50px_rgba(15,23,42,0.24)] focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-900"
               >
                 Send Message
               </button>
             </form>
           </div>
 
-          <div className="space-y-4">
-            <h2 className="text-2xl font-semibold text-slate-900 sm:text-3xl">Blog</h2>
-            <p className="text-base text-slate-600 sm:text-lg">Notes from in-progress thinking and product experiments.</p>
+          <div className="space-y-5">
+            <p className="text-xs font-semibold uppercase tracking-[0.28em] text-slate-500">Journal</p>
+            <h2 className="text-3xl font-semibold text-slate-900 sm:text-4xl">Signals, notes, and essays in progress.</h2>
             <div className="space-y-4">
               {blogPosts.map((post) => (
                 <article
                   key={post.title}
-                  className="rounded-2xl border border-slate-100 bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-lift"
+                  className="rounded-2xl border border-slate-200/90 bg-white/90 p-5 shadow-[0_16px_50px_rgba(15,23,42,0.06)] transition hover:-translate-y-1 hover:shadow-[0_22px_60px_rgba(15,23,42,0.1)]"
                 >
                   <div className="flex items-start justify-between gap-3">
-                    <div>
-                      <h3 className="text-lg font-semibold text-slate-900">{post.title}</h3>
-                      <p className="text-sm text-slate-600">{post.description}</p>
+                    <div className="space-y-1">
+                      <h3 className="text-xl font-semibold text-slate-900">{post.title}</h3>
+                      <p className="text-sm leading-relaxed text-slate-600">{post.description}</p>
                     </div>
-                    <span className="rounded-full bg-accentOrange/10 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-accentOrange">
+                    <span className="rounded-full bg-accentOrange/15 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-accentOrange">
                       Coming soon
                     </span>
                   </div>
